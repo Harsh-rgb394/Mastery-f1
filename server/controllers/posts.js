@@ -19,16 +19,15 @@ const post_get = async (req, res) => {
 const post_create = async (req, res) => {
   const post_info = req.body;
 
-  const new_post = new postmodel(post_info);
+  const new_post = new postmodel({...post_info,creator:req.userId,createdAt:new Date().toISOString()});
 
   try {
-    await new_post.save();
-    if (newsaved) {
+     await new_post.save();
+   
       res.status(200).json(new_post);
-    } else {
-      res.status(401).json({ success: false });
-    }
+   
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "cannot create post", success: false });
   }
 };
@@ -89,6 +88,10 @@ const delete_post=async(req,res)=>{
 const like_post=async(req,res)=>{
   const {id}=req.params;
 
+  if(!req.userId){
+    res.status(400).json({message:"Unauthenticated user"});
+
+  }
   if(!mongoose.Types.ObjectId.isValid(id)){
     res.status(400).json("invalid id");
   }
@@ -96,7 +99,17 @@ const like_post=async(req,res)=>{
   try {
     const update_id=await postmodel.findById(id);
 
-    const update_like=await postmodel.findByIdAndUpdate(id,{likecount:update_id.likecount+1},{new:true});
+    const index=await postmodel.findIndex((id)=>id===String(req.userId));
+
+    if(index===-1){
+      update_id.likecount.push(userId);
+    }
+    else{
+      update_id.like_post=update_id.like_post.filter((id)=>id!==String(req.userId));
+    
+    }
+
+    const update_like=await postmodel.findByIdAndUpdate(id,update_id,{new:true});
 
     if(update_like){
       res.status(200).json(update_like);

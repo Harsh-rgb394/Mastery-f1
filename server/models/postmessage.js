@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 const postSchema = mongoose.Schema({
   title: { type: String, required: true },
   message: { type: String, required: true },
+  name: { type: String },
+
   creator: { type: String, required: true },
   tags: { type: [String], default: [] },
   selectedFile: { type: String },
   likecount: {
-    type: Number,
-    default: 0,
+    type: [String],
+    default: [],
   },
   createdAt: {
     type: Date,
