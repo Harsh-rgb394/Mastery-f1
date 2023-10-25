@@ -20,6 +20,7 @@ app.use(cors());
 
 // now here we use default path for posts
 app.use("/posts", post_route);
+console.log(""+1);
 
 app.listen(PORT, (req, res) => {
   console.log(`server is successfully running on ${PORT}`.bgMagenta);

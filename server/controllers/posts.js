@@ -86,6 +86,32 @@ const delete_post=async(req,res)=>{
 //   }
 
 // }
+const like_post=async(req,res)=>{
+  const {id}=req.params;
+
+  if(!mongoose.Types.ObjectId.isValid(id)){
+    res.status(400).json("invalid id");
+  }
+
+  try {
+    const update_id=await postmodel.findById(id);
+
+    const update_like=await postmodel.findByIdAndUpdate(id,{likecount:update_id.likecount+1},{new:true});
+
+    if(update_like){
+      res.status(200).json(update_like);
+    }
+    else{
+      res.status(400).json("like count not increase");
+    }
+  } catch (error) {
+    console.log(error);
+    
+  }
 
 
-module.exports = { post_get, post_create,post_update ,delete_post};
+
+}
+
+
+module.exports = { post_get, post_create,post_update ,delete_post,like_post};

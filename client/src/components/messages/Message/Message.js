@@ -8,13 +8,15 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import ThumbUpAltIcon from "@material-ui/icons/ThumbDownAlt";
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import useStyles from "./styles";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deletepost } from "../../../actions/messages";
+import { likepost } from "../../../actions/messages";
+
 const Message = ({ post,setCurrentId }) => {
   const classes = useStyles();
   const dispatch=useDispatch();
@@ -50,10 +52,10 @@ const Message = ({ post,setCurrentId }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button size="small" color="primary" onClick={() => dispatch(likepost(post._id))}>
           <ThumbUpAltIcon size="small" />
           Like
-          {post.likedCount}
+          {post.likecount}
         </Button>
         <Button size="small" color="primary" onClick={() => dispatch(deletepost(post._id))}>
           <DeleteIcon size="small" />
