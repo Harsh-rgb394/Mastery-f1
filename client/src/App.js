@@ -39,6 +39,7 @@ const App = () => {
         <Container>
           <Grid
             container
+            className={classes.Maincontainer}
             justifyContent="space-between"
             alignItems="stretch"
             spacing={3}

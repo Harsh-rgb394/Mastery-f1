@@ -54,7 +54,8 @@ const Message = ({ post,setCurrentId }) => {
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => dispatch(likepost(post._id))}>
           <ThumbUpAltIcon size="small" />
-          Like
+          &nbsp; Like &nbsp;
+          {/* $nbsp for spacing  */}
           {post.likecount}
         </Button>
         <Button size="small" color="primary" onClick={() => dispatch(deletepost(post._id))}>
