@@ -33,6 +33,7 @@ export default makeStyles((theme) => ({
   brandContainer: {
     display: 'flex',
     alignItems: 'center',
+    marginRight: '265px'
     // marginRight:"130px"
   },
   purple: {
