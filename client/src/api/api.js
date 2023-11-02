@@ -10,10 +10,24 @@
 //   axios.post(url, newMessage);
 import axios from "axios";
 
-const url = "http://localhost:5000/posts";
 
-export const fetchPosts = () => axios.get(url);
-export const createPost = (newPost) => axios.post(url, newPost);
-export const updatepost=(id ,updatedpost)=>axios.patch(`${url}/${id}`,updatedpost);
-export const deletepost=(id)=>axios.delete(`${url}/${id}`);
-export const likepost=(id)=>axios.patch(`${url}/${id}/likepost`);
+const API=axios.create({baseURL:"http://localhost:5000"});
+// const url = "http://localhost:5000/posts";
+
+// for auth we need aixos intercepotr 
+API.interceptors.request.use((req)=>{
+    if(localStorage.getItem("profile")){
+    req.headers.Authorization= `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`;
+    }
+    return req;
+
+})
+
+export const fetchPosts = () => API.get("/posts");
+export const createPost = (newPost) => API.post("/posts", newPost);
+export const updatepost=(id ,updatedpost)=>API.patch(`/posts/${id}`,updatedpost);
+export const deletepost=(id)=>API.delete(`/posts/${id}`);
+export const likepost=(id)=>API.patch(`/posts/${id}/likepost`);
+
+export const SignIn=(userdata)=>API.post("/users/SignIn",userdata);
+export const SignUp=(userdata)=>API.post("/users/SignUp",userdata);
