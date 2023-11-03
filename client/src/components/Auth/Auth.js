@@ -9,13 +9,21 @@ import {gapi} from "gapi-script"
 import { useDispatch } from 'react-redux'
 // import {useHistory} from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
+import {SignUp,SignIn} from "../../actions/auth";
 
 
   // eslint-disable-next-line
 
+
 const Auth = () => {
   const classes=useStyles();
+  const [userdata,setuserdata]=useState({firstName: " ",
+  lastName: " ",
+  email:" ",
+  password: " ",
+  confirmPassword: " "});
   // for showing password to text and text to passowrd we need state for that to manage 
+  // eslint-disable-next-line
   const [showpassword,setShowpassword]=useState(false);
   const [Signup,setSignup]=useState(false);
   const dispatch=useDispatch();
@@ -36,10 +44,21 @@ const Auth = () => {
     setShowpassword((prevpassword)=>!prevpassword)
   }
 
-  const handlesubmit=()=>{
+  const handlesubmit=(e)=>{
+    e.preventDefault();
+    if(Signup){
+      dispatch(SignUp(userdata,navigate));
+      
+    }
+    else{
+      dispatch(SignIn(userdata,navigate));
+
+    }
+    // console.log(userdata);
 
   }
-  const handlechange=()=>{
+  const handlechange=(e)=>{
+    setuserdata({...userdata,[e.target.name]:e.target.value});
 
   }
   const switchMode=()=>{
@@ -82,13 +101,13 @@ const Auth = () => {
           <Grid container spacing={2}>
             { Signup && (
             <>
-              <Input name="firstName" label="First Name" handlechange={handlechange} autoFocus half />
-              <Input name="lastName" label="Last Name" handlechange={handlechange} half />
+              <Input name="firstName" label="First Name" handleChange={handlechange} autoFocus half />
+              <Input name="lastName" label="Last Name" handleChange={handlechange} half />
             </>
             )}
-            <Input name="email" label="Email Address" handlechange={handlechange} type="email" />
-            <Input name="password" label="Password" handlechange={handlechange} type={showpassword ? 'text' : 'password'} handleshowpassword={handleshowpassword} />
-            { Signup && <Input name="confirmPassword" label="Repeat Password" handlechange={handlechange}  type="password"/> }
+            <Input name="email" label="Email Address" handleChange={handlechange} type="email" />
+            <Input name="password" label="Password" handleChange={handlechange} type={showpassword ? 'text' : 'password'} handleshowpassword={handleshowpassword} />
+            { Signup && <Input name="confirmPassword" label="Repeat Password" handleChange={handlechange}  type="password"/> }
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             { Signup ? 'Sign Up' : 'Sign In' }
