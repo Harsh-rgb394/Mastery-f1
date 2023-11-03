@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 
-
 const Navbar = () => {
     const classes=useStyles();
     const [user,setuser]=useState(JSON.parse(localStorage.getItem("profile")));
@@ -27,6 +26,13 @@ const Navbar = () => {
     }
     useEffect(()=>{
       const token=user?.token;
+
+      // if(token){
+      //  const  decodedtoken=jwtDecode(token);
+
+      //   if(decodedtoken.exp*1000 <new Date().getTime())
+      //   logout();
+      // }
 
       
       setuser(JSON.parse(localStorage.getItem("profile")));

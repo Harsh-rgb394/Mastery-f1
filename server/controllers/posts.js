@@ -87,7 +87,7 @@ const delete_post=async(req,res)=>{
 // }
 const like_post=async(req,res)=>{
   const {id}=req.params;
-
+  // console.log(req.userId);
   if(!req.userId){
     res.status(400).json({message:"Unauthenticated user"});
 
@@ -99,7 +99,7 @@ const like_post=async(req,res)=>{
   try {
     const update_id=await postmodel.findById(id);
 
-    const index=await postmodel.findIndex((id)=>id===String(req.userId));
+    const index=await update_id.likecount.findIndex((id)=>id===String(req.userId));
 
     if(index===-1){
       update_id.likecount.push(userId);
