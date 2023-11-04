@@ -88,6 +88,7 @@ const delete_post=async(req,res)=>{
 const like_post=async(req,res)=>{
   const {id}=req.params;
   // console.log(req.userId);
+  // console.log(userId);
   if(!req.userId){
     res.status(400).json({message:"Unauthenticated user"});
 
@@ -99,13 +100,14 @@ const like_post=async(req,res)=>{
   try {
     const update_id=await postmodel.findById(id);
 
-    const index=await update_id.likecount.findIndex((id)=>id===String(req.userId));
+    const index=update_id.likecount.findIndex((id)=>id===String(req.userId));
 
     if(index===-1){
-      update_id.likecount.push(userId);
+      update_id.likecount.push(req.userId);
     }
     else{
-      update_id.like_post=update_id.like_post.filter((id)=>id!==String(req.userId));
+      update_id.likecount=update_id.likecount.filter((id)=>id!==String(req.userId));
+      // filter out meaning jo barabar nhai okay but jo barabar hai usse filter out kardo 
     
     }
 
