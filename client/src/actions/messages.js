@@ -1,5 +1,5 @@
 import * as api from "../api/api";
-import { CREATE,UPDATE,FETCH_ALL,DELETE } from "../Constants/actionTypes"; 
+import { CREATE,UPDATE,FETCH_ALL,DELETE, LIKE } from "../Constants/actionTypes"; 
 // everthing in api imports okay as api varible
 
 // action creatror that return actions
@@ -75,7 +75,7 @@ export const likepost=(id)=>async(dispatch)=>{
   try {
     const {data}=await api.likepost(id);
 
-    dispatch({type:UPDATE,payload:data});
+    dispatch({type:LIKE,payload:data});
     
   } catch (error) {
     console.log(error);

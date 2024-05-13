@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+require("dotenv").config();
 const Mongo_connect = require("./config/db");
 const post_route = require("./routes/posts");
 const user_route=require("./routes/users");
@@ -8,6 +9,8 @@ const user_route=require("./routes/users");
 // here we used imort statmenet rather than const because its easy use and handle
 // u you can use via "type":"module" in json file
 // for db connection
+// dotenv.config();
+
 Mongo_connect();
 const PORT = process.env.PORT || 5000;
 

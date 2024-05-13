@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <Grow in>
         <Container>
-          <Grid
+          <Grid 
             container
             className={classes.Maincontainer}
             justifyContent="space-between"

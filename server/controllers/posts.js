@@ -100,18 +100,8 @@ const like_post=async(req,res)=>{
   try {
     const update_id=await postmodel.findById(id);
 
-    const index=update_id.likecount.findIndex((id)=>id===String(req.userId));
+    const update_like=await postmodel.findByIdAndUpdate(id,{likecount:update_id.likecount+1},{new:true})
 
-    if(index===-1){
-      update_id.likecount.push(req.userId);
-    }
-    else{
-      update_id.likecount=update_id.likecount.filter((id)=>id!==String(req.userId));
-      // filter out meaning jo barabar nhai okay but jo barabar hai usse filter out kardo 
-    
-    }
-
-    const update_like=await postmodel.findByIdAndUpdate(id,update_id,{new:true});
 
     if(update_like){
       res.status(200).json(update_like);

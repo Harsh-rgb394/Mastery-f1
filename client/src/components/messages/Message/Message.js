@@ -71,13 +71,12 @@ const Message = ({ post,setCurrentId }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likepost(post._id))}>
-          {/* <ThumbUpAltIcon size="small" />
-          &nbsp; Like &nbsp;
-          {/* $nbsp for spacing  */}
-          {/* {post.likecount} */} 
+        {/* <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likepost(post._id))}>
+          <ThumbUpAltIcon size="small" />
+          Like
+          // {post.likecount} 
           <Likes/>
-        </Button>
+        </Button> */}
         {(user?.result?.googleId===post?.creator || user?.result?._id===post?.creator) &&(
        <Button size="small" color="primary" onClick={() => dispatch(deletepost(post._id))}>
        <DeleteIcon size="small" />

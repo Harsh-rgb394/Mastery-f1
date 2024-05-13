@@ -3,9 +3,9 @@ import { Paper,Button,Avatar,Grid, Typography,Container} from '@material-ui/core
 import useStyles from "./styles"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import Input from '../Input/Input'
-import {GoogleLogin} from "react-google-login"
-import Icon from "./Icon"
-import {gapi} from "gapi-script"
+// import {GoogleLogin} from "react-google-login"
+// import Icon from "./Icon"
+// import {gapi} from "gapi-script"
 import { useDispatch } from 'react-redux'
 // import {useHistory} from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
@@ -29,16 +29,16 @@ const Auth = () => {
   const dispatch=useDispatch();
   // const history=useHistory();
   const navigate=useNavigate();
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: "405897127658-ckq6qab4t58or0k2bgq25fc7m7crq68m.apps.googleusercontent.com",
-        scope: 'email',
-      });
-    }
+  // useEffect(() => {
+  //   function start() {
+  //     gapi.client.init({
+  //       clientId: "405897127658-ckq6qab4t58or0k2bgq25fc7m7crq68m.apps.googleusercontent.com",
+  //       scope: 'email',
+  //     });
+  //   }
 
-    gapi.load('client:auth2', start);
-  }, []);
+  //   gapi.load('client:auth2', start);
+  // }, []);
 
   const handleshowpassword=()=>{
     setShowpassword((prevpassword)=>!prevpassword)
@@ -67,29 +67,29 @@ const Auth = () => {
 
   }
 
-  const googleSuccess=async(res)=>{
-    // console.log(res);
-    // dont thorw error we dont have res or dont access to res 
-    // simply say undefined 
-    const result=res?.profileObj;
-    const token=res?.tokenObj;/* means dont thorw error but show what is error */
+  // const googleSuccess=async(res)=>{
+  //   // console.log(res);
+  //   // dont thorw error we dont have res or dont access to res 
+  //   // simply say undefined 
+  //   const result=res?.profileObj;
+  //   const token=res?.tokenObj;/* means dont thorw error but show what is error */
 
-    try {
-      dispatch({type:"AUTH",data:{result,token}});
+  //   try {
+  //     dispatch({type:"AUTH",data:{result,token}});
 
-      // history.push("/");
-      navigate("/");
-    } catch (error) {
-      console.log(error);
+  //     // history.push("/");
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.log(error);
       
-    }
+  //   }
 
-  }
-  const googleError=(error)=>{
-    console.log(error);
-    console.log("Unsuccessfull goolge login");
+  // }
+  // const googleError=(error)=>{
+  //   console.log(error);
+  //   console.log("Unsuccessfull goolge login");
 
-  }
+  // }
   return (
     <Container component="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={4}>
@@ -112,7 +112,7 @@ const Auth = () => {
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             { Signup ? 'Sign Up' : 'Sign In' }
           </Button>
-          <GoogleLogin
+          {/* <GoogleLogin
           clientId='405897127658-ckq6qab4t58or0k2bgq25fc7m7crq68m.apps.googleusercontent.com'
             render={(renderProps) => (
               <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
@@ -123,7 +123,7 @@ const Auth = () => {
             onFailure={googleError}
             cookiePolicy="single_host_origin"
            
-          />
+          /> */}
           <Grid container justify="center">
             <Grid item>
               <Button onClick={switchMode}>

@@ -1,7 +1,8 @@
 const bcryptjs=require("bcryptjs");
 const jwt=require("jsonwebtoken");
 const user=require("../models/user");
-JWT_SECRET_KEY="abc123";
+
+
 const SignIn=async(req,res)=>{
     const {email,password}=req.body;
 
@@ -16,7 +17,7 @@ const SignIn=async(req,res)=>{
             res.status(400).json({message:"password not match"});
         }
 
-        const token=jwt.sign({email:existuser.email,id:existuser._id},JWT_SECRET_KEY,{expiresIn:"1d"});
+        const token=jwt.sign({email:existuser.email,id:existuser._id},process.env.JWT_SECRET_KEY,{expiresIn:"1d"});
 
         res.status(200).json({message:"login success",result:existuser,token});
 
